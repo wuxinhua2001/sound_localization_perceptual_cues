@@ -64,7 +64,7 @@ def create_dataset(src_path, dst_path, csv_path):
         dataset['fold{}'.format(fold)] = {}
         sounds = []
         labels = []
-        elevations = []  # 新增仰角列表
+        elevations = []  
 
         for wav_file in sorted(glob.glob(os.path.join(src_path, 'fold{}_*.wav'.format(fold)))):
             #sound = wavio.read(wav_file).data.T[0]
@@ -77,8 +77,7 @@ def create_dataset(src_path, dst_path, csv_path):
             sounds.append(sound)
             labels.append(label)
 
-            # ===== 仰角提取逻辑 =====
-            # 解析出与CSV文件关联的后缀编号
+            
             file_id = os.path.splitext(file_name)[0].split('_')[-1]
             csv_name = f'fold{fold}_{file_id}.csv'
             csv_file_path = os.path.join(csv_path, csv_name)
@@ -88,7 +87,7 @@ def create_dataset(src_path, dst_path, csv_path):
                     first_line = f.readline().strip()
                     values = [int(x) for x in first_line.split(',')]
                     az, el = values[-2], values[-1]
-                    elevation = angle_map.get((az, el), -1)  # 默认-1表示未识别
+                    elevation = angle_map.get((az, el), -1)  # set the unrecognized value to -1
             except Exception as e:
                 print(f'Warning: Failed to read angle from {csv_path}, defaulting to -1. Error: {e}')
                 elevation = -1
@@ -97,7 +96,7 @@ def create_dataset(src_path, dst_path, csv_path):
 
         dataset['fold{}'.format(fold)]['sounds'] = sounds
         dataset['fold{}'.format(fold)]['labels'] = labels
-        dataset['fold{}'.format(fold)]['elevations'] = elevations  # 添加仰角信息
+        dataset['fold{}'.format(fold)]['elevations'] = elevations 
 
     np.savez(dst_path, **dataset)
 
