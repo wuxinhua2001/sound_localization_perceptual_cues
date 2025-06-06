@@ -1,49 +1,42 @@
-Study of perceptual cues of median plane sound localization
-============================
+Dataset setup
+===============
 
-Implementation of [Learning from Between-class Examples for Deep Sound Recognition](https://arxiv.org/abs/1711.10282) by Yuji Tokozume, Yoshitaka Ushiku, and Tatsuya Harada (ICLR 2018).
+Dataset preparation for ESC-50, ESC-10 [[1]](#1), and UrbanSound8K [[2]](#2).
 
+- FFmpeg should be installed.
+- First of all, please make a directory to save datasets.
 
-## News
+		mkdir [path]
 
-## Contents
-- Traing, Test and Recording
-	- train the model with training dataset convolved with certain type of HRTF
-   	- test the model with test dataset convolved with certain type of HRTF
+## [ESC-50 and ESC-10](https://github.com/karoldvl/ESC-50) setup
 
+	python esc_gen.py [path]
 
-## Setup
-- Install [Chainer](https://chainer.org/) v7.8.1 on a machine with CUDA GPU.
+- Following files will be generated.
+	- [path]/esc50/wav16.npz  # 16kHz, for EnvNet
+	- [path]/esc50/wav44.npz  # 44.1kHz, for EnvNet-v2
+	- [path]/esc10/wav16.npz
+	- [path]/esc10/wav44.npz
 
+## [UrbanSound8K](http://urbansounddataset.weebly.com/urbansound8k.html) setup
 
-## Training
-- Template:
+1. Download UrbanSound8K dataset from [this page](http://urbansounddataset.weebly.com/urbansound8k.html).
 
-		python main.py --dataset [samrai_original, samrai_arma, samrai_averaged or samrai_N1N2P1P2] --netType [envnetstereov2] --data path/to/dataset/directory/ (--save path/to/save/directory) (--testOnly)
- 
-- Recipes:
-	- Traning of EnvNetstereo_v2 on samrai_original:
+2. Move UrbanSound8K directory.
 
-			python main.py --dataset samrai_original --netType envnetstereov2 --data path/to/dataset/directory/
-	
-- Notes:
-	- Validation accuracy is calculated using 10-crop testing.
-	- By default, it performs K-fold cross validation using the original fold settings. You can run on a particular split by using --split command.
-	- Please check [opts.py](https://github.com/mil-tokyo/bc_learning_sound/blob/master/opts.py) for other command line arguments.
+		mkdir -p [path]/urbansound8k
+		mv UrbanSound8K [path]/urbansound8k/
+		
+3. Run the following command.
 
+		python urbansound_gen.py [path]
+		
+- Following files will be generated.
+	- [path]/urbansound8k/wav16.npz
+	- [path]/urbansound8k/wav44.npz
 
-## Results
-
-
-
-## See also
-[Between-class Learning for Image Clasification](https://arxiv.org/abs/1711.10284) ([github](https://github.com/mil-tokyo/bc_learning_image))
 
 ---
-<i id=1></i><sup>1</sup> Training/testing schemes are simplified from those in the ICASSP paper.
-
-<i id=2></i><sup>2</sup> It is higher than that reported in the ICASSP paper (36% error), mainly because here we use 4 out of 5 folds for training, whereas we used only 3 folds in the ICASSP paper.
-
 #### Reference
 <i id=1></i>[1] Karol J Piczak. Esc: Dataset for environmental sound classification. In *ACM Multimedia*, 2015.
 
