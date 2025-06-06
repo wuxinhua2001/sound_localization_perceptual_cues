@@ -7,7 +7,7 @@ Implementation of [Learning from Between-class Examples for Deep Sound Recogniti
 ## News
 
 ## Contents
-- Traing, Test and Recording
+- Training, Test and Recording
 	- train the model with training dataset convolved with certain type of HRTF
    	- test the model with test dataset convolved with certain type of HRTF
 
