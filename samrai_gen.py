@@ -49,7 +49,7 @@ def create_dataset(src_path, dst_path, csv_path):
     print('* {} -> {}'.format(src_path, dst_path))
     dataset = {}
 
-    # 定义仰角映射表
+    # correspondance of elevation angle
     angle_map = {
         (0, 0): 0,
         (0, 30): 30,
