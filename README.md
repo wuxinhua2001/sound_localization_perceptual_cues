@@ -25,7 +25,7 @@ Implementation of [Learning from Between-class Examples for Deep Sound Recogniti
 	- Traning of EnvNetstereo_v2 on samrai_original:
 
 			python main.py --dataset samrai_original --netType envnetstereov2 --data path/to/dataset/directory/
-   	- Test and recording of EnvNetstereo_v2 on samrai_original:
+   	- Test and recording of EnvNetstereo_v2 on samrai_test_original:
    	  		
 			python main.py --dataset samrai_test_original --netType envnetstereov2 --data path/to/dataset/directory/ --testOnly --save path/to/save/directory
 - Notes:
